@@ -7,7 +7,7 @@ onready var ball_entity = get_node("Entity/Ball")
 onready var player = get_node("Data/Player")
 onready var player_entity = get_node("Entity/Player")
 onready var score = get_node("Entity/Score")
-onready var block_prefab = preload("res://game/block.tscn")
+onready var block_prefab = preload("res://scene/block.tscn")
 
 var rest_block = 0
 var prev_window_size = Vector2.ZERO
