@@ -2,15 +2,17 @@ extends KinematicBody2D
 
 signal on_collision(collider)
 
-export var MAX_SPEED := 800
-export var ADD_SPEED := 3
+export var MAX_SPEED := 400
+export var ADD_SPEED := 2
 
 var INITIAL_POSITION := Vector2(120, 230)
 var INITIAL_DIRECTION := Vector2(1, -1).normalized()
-var INITIAL_SPEED := 60.0
+var INITIAL_SPEED := 40.0
 
 var direction = INITIAL_DIRECTION
 var speed := INITIAL_SPEED
+
+onready var entity = get_tree().root.get_node("Game/Entity/Ball")
 
 func _physics_process(delta):
 	var velocity = direction * speed
@@ -23,6 +25,12 @@ func _physics_process(delta):
 
 		speed = min(MAX_SPEED, speed + ADD_SPEED)
 		emit_signal("on_collision", collision.collider)
+
+	entity.position = Global.o2i(position)
+
+	if position.y > 400:
+		var _e = get_tree().reload_current_scene()
+
 
 func reset() -> void:
 	position = INITIAL_POSITION
