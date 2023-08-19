@@ -1,8 +1,0 @@
-"filename", "language", "GDScript", "comment", "blank", "total"
-"/Users/sanitygames/projects/iso_breakout/script/ball.gd", "GDScript", 31, 0, 13, 44
-"/Users/sanitygames/projects/iso_breakout/script/block.gd", "GDScript", 10, 0, 4, 14
-"/Users/sanitygames/projects/iso_breakout/script/game.gd", "GDScript", 29, 0, 8, 37
-"/Users/sanitygames/projects/iso_breakout/script/global.gd", "GDScript", 5, 1, 2, 8
-"/Users/sanitygames/projects/iso_breakout/script/player.gd", "GDScript", 9, 0, 3, 12
-"/Users/sanitygames/projects/iso_breakout/script/score.gd", "GDScript", 5, 0, 3, 8
-"Total", "-", 89, 1, 33, 123
