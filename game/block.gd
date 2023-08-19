@@ -1,6 +1,5 @@
 extends StaticBody2D
 
-
 var entity
 
 func initialize(pos):

@@ -3,9 +3,9 @@ extends KinematicBody2D
 signal on_collision(collider)
 
 export var MAX_SPEED := 800
-export var ADD_SPEED := 3
+export var ADD_SPEED := 2
 export var MIN_BALL_ANGLE := 20.0
-export var MAX_BALL_ANGLE := 70.0
+export var MAX_BALL_ANGLE := 80.0
 
 var INITIAL_POSITION := Vector2(120, 230)
 var INITIAL_DIRECTION := Vector2(1, -1).normalized()
@@ -19,10 +19,11 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		if collision.collider.is_in_group("player"):
-			direction = clamp_angle((position - collision.collider.position).normalized())
+			direction = (position - collision.collider.position).normalized()
 		else:
-			direction = clamp_angle(direction.bounce(collision.normal))
+			direction = direction.bounce(collision.normal)
 
+		direction = clamp_angle(direction)
 		speed = min(MAX_SPEED, speed + ADD_SPEED)
 		emit_signal("on_collision", collision.collider)
 

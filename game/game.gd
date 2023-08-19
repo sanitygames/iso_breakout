@@ -2,22 +2,20 @@ extends Node2D
 
 export var DEBUG = false
 
-
 onready var ball = get_node("Data/Ball")
+onready var ball_entity = get_node("Entity/Ball")
 onready var player = get_node("Data/Player")
-onready var block_prefab = preload("res://game/block.tscn")
+onready var player_entity = get_node("Entity/Player")
 onready var score = get_node("Entity/Score")
+onready var block_prefab = preload("res://game/block.tscn")
 
 var rest_block = 0
-var blocks = []
 var prev_window_size = Vector2.ZERO
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		var mouse_pos_norm = event.position.x / prev_window_size.x * 1.2 - 0.1
 		player.position.x = clamp(mouse_pos_norm * 240, 30, 210)
-
-
 
 func _ready():
 	$Data/Wall/Debug.disabled = !DEBUG
@@ -28,20 +26,16 @@ func _physics_process(_delta):
 	# check game over
 	if ball.position.y > 340:
 		game_over()
-
 	# check game clear
 	if rest_block <= 0 && ball.position.y > 140:
 		_build_blocks()
-
 	# change window rect size
 	var window_size = OS.get_window_safe_area().size
 	if prev_window_size != window_size:
 		_set_entity_position(window_size)
-
 	# position
-	$Entity/Player.position = Global.o2i(player.position)
-	$Entity/Ball.position = Global.o2i(ball.position)
-
+	player_entity.position = Global.o2i(player.position)
+	ball_entity.position = Global.o2i(ball.position)
 
 func game_over() -> void:
 	set_physics_process(false)
@@ -57,8 +51,7 @@ func _build_blocks() -> void:
 	for y in 4:
 		for x in 5:
 			var block = block_prefab.instance()
-			block.position.x = 40 * (x + 1)
-			block.position.y = 50 + (20 * y)
+			block.position = Vector2(40 * (x + 1), 20 * y + 50)
 			$Data.add_child(block)
 			block.initialize(block.position)
 			rest_block += 1
@@ -69,6 +62,4 @@ func _on_Ball_on_collision(collider) -> void:
 		score.add()
 		collider.destroy()
 		rest_block -= 1
-		if rest_block <= 0:
-			print("clear")
 
